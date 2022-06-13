@@ -1,0 +1,48 @@
+ <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item ">
+            <a class="nav-link" href="#">Home <span class="sr-only"></span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'See all Restaurants', restaurants_path, class:'nav-link' %>
+           </li>
+          <li class="nav-item">
+            <%= link_to 'See all Categories', categories_path, class:'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Account Setting', categories_path, class:'nav-link' %>
+          </li>
+          <% if current_user && current_user.is_admin %>
+          <li class="nav-item">
+            <%= link_to 'Admin Dashboard', admins_path, class:'nav-link' %>
+          </li>
+          <% end %>
+        </ul>
+      </div>
+
+
+      <%# <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        See all
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Rstaurants</a>
+          <a class="dropdown-item" href="#">Categories</a>
+        </div>
+      </li> %>
+      <% if user_signed_in? %>
+        <%= link_to 'Sign out', destroy_user_session_path, class:'btn btn-danger', method: :delete  %>
+      <% else %>
+        <%= link_to 'Sign in', new_user_session_path, class:'btn btn-primary mx-2' %>
+        <%= link_to 'Registration', new_user_registration_path, class:'btn btn-success mx-2' %>
+      <% end %>
+    </nav>

@@ -1,0 +1,31 @@
+<%= form_with model: item do |f| %>
+  <div>
+    <%= f.label :item_title %><br>
+    <%= f.text_field :item_title %>
+  </div>
+  <div>
+    <%= f.label :item_description %><br>
+    <%= f.text_field :item_description %>
+  </div>
+  <div>
+    <%= f.label :item_price %><br>
+    <%= f.text_field :item_price %>
+  </div>
+  <div>
+    <%= f.label :is_sold %><br>
+    <%= f.label :is_sold, "Yes", :value => "true" %>
+    <%= f.radio_button :is_sold, true, :checked => true %>
+    <%= f.label :is_sold, "No", :value => "false"  %>
+    <%= f.radio_button :is_sold, true %>
+  </div>
+
+  <%# <div>
+    <%= f.collection_select :restaurant_id, Item.all, :restaurant_name %>
+  <%# </div> %>
+  <div>
+    <%= f.select :restaurant_id, Restaurant.pluck(:restaurant_name, :id) %>
+  </div>
+  <div>
+    <%= f.submit %>
+  </div>
+<% end %>
