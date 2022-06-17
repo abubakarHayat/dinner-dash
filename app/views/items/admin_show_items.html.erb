@@ -1,20 +1,5 @@
-
-
 <div class="container">
   <div class="row">
-    <div class="col-md-4">
-      <% @items.each do |item| %>
-        <div class="card" style="width: 18rem;">
-          <div class="card-body">
-            <h5 class="card-title"><%= item.item_title %></h5>
-            <h6 class="card-subtitle mb-2 text-muted"><%= item.restaurant.restaurant_name %></h6>
-            <h6 class="card-subtitle mb-2 text-muted">PKR: <%= item.item_price %></h6>
-            <p class="card-text"><%= item.item_description %></p>
-            <%= link_to 'Edit', edit_item_path(item), class:'btn btn-primary' %>
-            <%= link_to 'Delete', item_path(item), class:'btn btn-danger', method: :delete  %>
-          </div>
-        </div>
-      <% end %>
-    </div>
+    <%= render partial: 'items/partials/admin_item_card', collection: @items, as: :item %>%
   </div>
 </div>

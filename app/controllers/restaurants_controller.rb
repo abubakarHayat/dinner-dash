@@ -29,7 +29,7 @@ class RestaurantsController < ApplicationController
   end
 
   def admin_show_restaurants
-    @restaurant = Restaurant.all
+    @restaurants = Restaurant.all
   end
 
   private

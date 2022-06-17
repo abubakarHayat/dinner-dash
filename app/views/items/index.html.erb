@@ -3,18 +3,6 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-4">
-      <% @items.each do |item| %>
-        <div class="card" style="width: 18rem;">
-          <div class="card-body">
-            <h5 class="card-title"><%= item.item_title %></h5>
-            <h6 class="card-subtitle mb-2 text-muted"><%= item.restaurant.restaurant_name %></h6>
-            <h6 class="card-subtitle mb-2 text-muted">PKR: <%= item.item_price %></h6>
-            <p class="card-text"><%= item.item_description %></p>
-            <a href="#" class="btn btn-primary">Add to cart</a>
-          </div>
-        </div>
-      <% end %>
-    </div>
+    <%= render partial: 'items/partials/item_card', collection: @items, as: :item %>%
   </div>
 </div>

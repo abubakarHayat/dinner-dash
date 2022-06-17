@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="row">
+      <% @restaurants.each do |restaurant| %>
+      <div class="col-md-4">
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title"><%= restaurant.restaurant_name %></h5>
+            <%= link_to 'Delete', restaurant_path(restaurant), class:'btn btn-danger', method: :delete  %>
+          </div>
+        </div>
+            </div>
+      <% end %>
+  </div>
+</div>
