@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   # get 'items/index'
   # get 'items/show'
   get 'items/show_items_admin', to: 'items#admin_show_items', as: 'admin_show_items'
+  post 'items/add_to_cart/:id', to: 'items#add_to_cart', as: 'add_to_cart'
   get 'restaurants/show_restaurants_admin', to: 'restaurants#admin_show_restaurants', as: 'admin_show_restaurants'
   resources :items
   resources :categories, only: [:index]

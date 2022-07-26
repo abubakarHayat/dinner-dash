@@ -5,7 +5,8 @@
         <h6 class="card-subtitle mb-2 text-muted"><%= item.restaurant.restaurant_name %></h6>
         <h6 class="card-subtitle mb-2 text-muted">PKR: <%= item.item_price %></h6>
         <p class="card-text"><%= item.item_description %></p>
-        <a href="#" class="btn btn-primary">Add to cart</a>
+        <%# <a href="#" class="btn btn-primary">Add to cart</a> %>
+        <%= link_to 'Add to cart', add_to_cart_path(item.id), class: 'btn btn-primary',method: :post %>
       </div>
     </div>
 </div>
