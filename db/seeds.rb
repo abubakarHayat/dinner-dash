@@ -17,4 +17,4 @@
   # Category.create({category_name: 'Category 3'})
 
   # User.delete({email: 'admin@admin.com', password: 'admin123', password_confirmation: 'admin123', name: 'admin', display_name: 'admind'})
-  # User.create({email: 'admin@admin.com', password: 'admin123', password_confirmation: 'admin123', name: 'admin', display_name: 'admind', is_admin: true})
+  #User.create({email: 'admin@admin.com', password: 'admin123', password_confirmation: 'admin123', first_name: 'admin', last_name: 'bhai', display_name: 'admind', is_admin: true})

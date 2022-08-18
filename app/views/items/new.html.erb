@@ -1,6 +1,10 @@
-<h1>Items#new</h1>
-<p>Find me in app/views/items/new.html.erb</p>
+<h1>Create a new Item</h1>
 
 <h1>New Item</h1>
-
+  <% if @item.errors.any? %>
+  <h2>Errors:</h2>
+    <% @item.errors.full_messages.each do |e|%>
+    <li><%= e %></li>
+    <% end %>
+  <% end %>
 <%= render 'items/partials/form', item: @item %>

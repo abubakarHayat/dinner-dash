@@ -1,12 +1,13 @@
 <h1>New Restaurant</h1>
+<div class="container">
+  <%= form_with model: @restaurant, local: true do |f| %>
+    <div>
+      <%= f.label :restaurant_name, class:"form-label" %><br>
+      <%= f.text_field :restaurant_name, class:"form-control" %>
+    </div>
 
-<%= form_with model: @restaurant do |f| %>
-  <div>
-    <%= f.label :restaurant_name %><br>
-    <%= f.text_field :restaurant_name %>
-  </div>
-
-  <div>
-    <%= f.submit %>
-  </div>
-<% end %>
+    <div>
+      <%= f.submit %>
+    </div>
+  <% end %>
+</div>

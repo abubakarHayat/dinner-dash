@@ -1,0 +1,17 @@
+<h2>Categories</h2>
+
+<div class="container">
+  <div class="row">
+  <% @categories.each do |category| %>
+    <div class="col-md-4">
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title"><%= category.category_name %></h5>
+            <%= button_to 'Delete', category_path(category), class:'btn btn-danger', method: :delete  %>
+            <%= link_to 'Show Category Items', category_path(category), class:'btn btn-primary' %>
+          </div>
+        </div>
+    </div>
+  <% end %>
+  </div>
+</div>

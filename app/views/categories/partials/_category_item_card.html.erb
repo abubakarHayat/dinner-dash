@@ -1,0 +1,16 @@
+<div class="col-md-4">
+    <div class="card" style="width: 18rem;">
+    <% if category_item.image.attached? %>
+        <%= image_tag category_item.image, class: 'card-img-top'%>
+      <% else %>
+        <%= image_tag 'default_item_image.png', class: 'card-img-top'%>
+      <% end %>
+      <div class="card-body">
+        <h5 class="card-title"><%= category_item.item_title %></h5>
+        <h6 class="card-subtitle mb-2 text-muted"><%= category_item.restaurant.restaurant_name %></h6>
+        <h6 class="card-subtitle mb-2 text-muted">PKR: <%= category_item.item_price %></h6>
+        <p class="card-text"><%= category_item.item_description %></p>
+        <%= link_to 'Add to cart', add_to_cart_path(category_item), class: 'btn btn-primary', method: :post, remote: true %>
+      </div>
+    </div>
+</div>

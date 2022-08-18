@@ -1,18 +1,9 @@
-
-
 <div class="container">
   <div class="row">
-    <div class="col-md-4">
-      <% @restaurant_items.each do |item| %>
-        <div class="card" style="width: 18rem;">
-          <div class="card-body">
-            <h5 class="card-title"><%= item.item_title %></h5>
-            <h6 class="card-subtitle mb-2 text-muted"><%= item.restaurant.restaurant_name %></h6>
-            <h6 class="card-subtitle mb-2 text-muted">PKR: <%= item.item_price %></h6>
-            <p class="card-text"><%= item.item_description %></p>
-          </div>
-        </div>
+      <% unless @restaurant_items.empty? %>
+        <%= render partial: 'restaurants/partials/show_restaurant_items', collection: @restaurant_items, as: :item %>
+      <% else %>
+        <h4>This restaurant has no items!</h4>
       <% end %>
     </div>
-  </div>
 </div>

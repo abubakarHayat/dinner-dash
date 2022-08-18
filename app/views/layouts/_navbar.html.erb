@@ -10,18 +10,15 @@
             <%= link_to 'Home', items_path, class:'nav-link' %>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item">
             <%= link_to 'See all Restaurants', restaurants_path, class:'nav-link' %>
            </li>
           <li class="nav-item">
             <%= link_to 'See all Categories', categories_path, class:'nav-link' %>
           </li>
           <li class="nav-item">
-            <%= link_to 'Account Setting', categories_path, class:'nav-link' %>
+            <%= link_to 'Account Setting', edit_user_registration_path, class:'nav-link' %>
           </li>
-          <% if current_user && current_user.is_admin %>
+          <% if current_user && current_user.is_admin  %>
           <li class="nav-item">
             <%= link_to 'Admin Dashboard', admins_path, class:'nav-link' %>
           </li>
@@ -29,18 +26,9 @@
         </ul>
       </div>
 
-
-      <%# <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        See all
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Rstaurants</a>
-          <a class="dropdown-item" href="#">Categories</a>
-        </div>
-      </li> %>
       <%= link_to 'Cart', carts_path, class:'btn btn-success' %>
       <% if user_signed_in? %>
+        <%= link_to 'Orders', orders_path, class:'btn btn-warning' %>
         <%= link_to 'Sign out', destroy_user_session_path, class:'btn btn-danger', method: :delete  %>
       <% else %>
         <%= link_to 'Sign in', new_user_session_path, class:'btn btn-primary mx-2' %>

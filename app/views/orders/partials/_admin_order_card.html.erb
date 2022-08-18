@@ -1,0 +1,8 @@
+<tr>
+  <td style="vertical-align: middle" ><p><em>User: <%= order.user.first_name %></em></p></td>
+  <td style="vertical-align: middle" ><p>Order# <%= order.id %></p></td>
+  <td style="vertical-align: middle" ><p><%= order.status %></p></td>
+  <td style="vertical-align: middle" ><p><%= order.total %></p></td>
+  <td style="vertical-align: middle" > <%= link_to 'Order page', order_path(order), class: "btn btn-primary" %> </td>
+  <td style="vertical-align: middle" > <%= link_to 'Change Order Status', edit_order_path(order), class: "btn btn-success" %> </td>
+</tr>

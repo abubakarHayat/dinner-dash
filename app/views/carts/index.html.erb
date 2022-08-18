@@ -1,7 +1,37 @@
-<h1>Carts#index</h1>
-<p>Find me in app/views/carts/index.html.erb</p>
-<% if @cart_items %>
-  <% @cart_items.each do |cart_item| %>
-    <p><%= cart_item.item_title %></p>
-  <% end %>
-<% end %>
+<%#<h1>Carts#index</h1>
+<p>Find me in app/views/carts/index.html.erb</p> %>
+<div class="container" >
+  <div class="row">
+    <div class="col-md-12">
+    <table class="table table-bordered">
+    <thead>
+      <td>Image</td>
+      <td>Item Name</td>
+      <td>Item Price</td>
+      <td>Item Quantity</td>
+      <td>Remove Item</td>
+    </thead>
+      <tbody>
+        <%if @items %>
+          <%= render partial: 'carts/partials/cart_item_card', collection: @items, as: :item %>
+        <% else %>
+          <%= puts flash[:notice] %>
+        <% end %>
+      </tbody>
+      </table>
+    </div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-md-12">
+      <h3> Total: </h3>
+      <p>PKR: <%= session[:cart_total] %></p>
+    </div>
+    <div class="col-md-12">
+      <div class="d-grid gap-2 col-6 mx-auto">
+        <%= link_to 'Checkout', cart_checkout_path, class: "btn btn-dark" %>
+      </div>
+    </div>
+  </div>
+</div>
+

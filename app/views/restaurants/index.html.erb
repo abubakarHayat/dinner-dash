@@ -1,17 +1,16 @@
-<h1>Restaurants#index</h1>
-<p>Find me in app/views/restaurants/index.html.erb</p>
+<h1>Restaurants</h1>
 
 <div class="container">
   <div class="row">
-    <div class="col-md-4">
       <% @restaurants.each do |restaurant| %>
+      <div class="col-md-4">
         <div class="card" style="width: 18rem;">
           <div class="card-body">
             <h5 class="card-title"><%= restaurant.restaurant_name %></h5>
             <%= link_to 'See all items', restaurant_path(restaurant), class:'btn btn-primary' %>
           </div>
         </div>
+      </div>
       <% end %>
-    </div>
   </div>
 </div>

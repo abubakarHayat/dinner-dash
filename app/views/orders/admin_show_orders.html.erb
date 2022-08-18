@@ -1,0 +1,20 @@
+<div class="container" >
+  <div class="row">
+    <div class="col-md-12">
+    <table class="table table-bordered">
+    <thead>
+      <td><em>User</em></td>
+      <td>Order</td>
+      <td>Status</td>
+      <td>Total Bill</td>
+      <td>Order Page</td>
+      <td>Change order status</td>
+    </thead>
+      <tbody>
+        <%= render partial: 'orders/partials/admin_order_card', collection: @orders, as: :order %>
+      </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
