@@ -24,7 +24,18 @@ class OrdersController < ApplicationController
   end
 
   def admin_show_orders
-    @orders = Order.where(user_id: User.where(is_admin: false).pluck(:id))
+    case params[:status]
+    when "ordered"
+      @orders = Order.where(user_id: User.where(is_admin: false).pluck(:id), status: params[:status])
+    when "paid"
+      @orders = Order.where(user_id: User.where(is_admin: false).pluck(:id), status: params[:status])
+    when "completed"
+      @orders = Order.where(user_id: User.where(is_admin: false).pluck(:id), status: params[:status])
+    when "cancelled"
+      @orders = Order.where(user_id: User.where(is_admin: false).pluck(:id), status: params[:status])
+    else
+      @orders = Order.where(user_id: User.where(is_admin: false).pluck(:id))
+    end
     authorize @orders
   end
 
