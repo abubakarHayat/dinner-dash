@@ -37,6 +37,7 @@ class OrdersController < ApplicationController
       @orders = Order.where(user_id: User.where(is_admin: false).pluck(:id))
     end
     authorize @orders
+    @total_orders_by_status = Order.group(:status).count
   end
 
   private

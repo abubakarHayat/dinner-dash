@@ -6,6 +6,7 @@ class ItemsController < ApplicationController
     @items = Item.get_sold_items
     items_count = OrderItem.group(:item_id).count
     @popular_item = Item.find(items_count.key(items_count.values.max))
+    rescue ActiveRecord::RecordNotFound
   end
 
   def new
