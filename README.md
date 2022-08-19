@@ -1,24 +1,49 @@
-# README
+# DinnerDashV2
+  Dinner Dash V2 is a web application made in ruby on rails. It allows one to manage Restaurants and its items, customers' cart, their orders etc.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+  Following are some details that would help you to get this app up and running in your system.
 
-Things you may want to cover:
 
-* Ruby version
+#### Ruby version
+ruby 2.7
 
-* System dependencies
+#### Rails version
+rails 5.2
 
-* Configuration
+### System dependencies
 
-* Database creation
+#### Configuration
+* Make sure to have ruby installed. You can check by running following command:
+```console
+foo@bar:~$ ruby -v
+```
+* Make sure to have rails installed as well.
+```console
+foo@bar:~$ rails -v
+```
+* Install and enable postgresql.
+```console
+foo@bar:~$ sudo yum install postgresql-server postgresql-contrib
+```
+* Create postgres database cluster.
+```console
+foo@bar:~$ sudo postgresql-setup initdb
 
-* Database initialization
+```
 
-* How to run the test suite
+* Install necessary gems.
+```console
+foo@bar:~$ bundle install
 
-* Services (job queues, cache servers, search engines, etc.)
+```
+* Run following data to initialize DB with seed data.
+```console
+foo@bar:~$ rails db:seed
 
-* Deployment instructions
+```
 
-* ...
+* Run Rails server.
+```console
+foo@bar:~$ rails s
+
+```
