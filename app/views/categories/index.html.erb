@@ -1,6 +1,9 @@
 <h1>Categories</h1>
 <div class="container">
   <div class="row">
+    <% if @categories.empty? %>
+      <h4>No categories to show!</h4>
+    <% end %>
     <% @categories.each do |category| %>
       <div class="col-md-4">
           <div class="card" style="width: 18rem;">

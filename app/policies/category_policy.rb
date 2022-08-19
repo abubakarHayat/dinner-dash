@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CategoryPolicy < ApplicationPolicy
   class Scope < Scope
     # NOTE: Be explicit about which records you allow access to!
@@ -11,11 +13,11 @@ class CategoryPolicy < ApplicationPolicy
   end
 
   def create?
-    @user.is_admin
+    @user&.is_admin || false
   end
 
   def show?
-    @user.is_admin
+    true
   end
 
   def edit?
@@ -23,15 +25,14 @@ class CategoryPolicy < ApplicationPolicy
   end
 
   def update?
-    @user.is_admin
+    @user&.is_admin || false
   end
 
   def destroy?
-    @user.is_admin
+    @user&.is_admin || false
   end
 
   def admin_show_categories?
-    @user.is_admin
+    @user&.is_admin || false
   end
-
 end

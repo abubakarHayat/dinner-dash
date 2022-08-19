@@ -7,5 +7,5 @@ class User < ApplicationRecord
   has_one :cart, dependent: :destroy
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validates :display_name, length: { in: 2...32 }
+  validates :display_name, length: { in: 2...32 }, unless: -> { display_name.blank? }
 end

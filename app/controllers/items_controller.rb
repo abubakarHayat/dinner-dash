@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ItemsController < ApplicationController
   include CurrentCart
   after_action :set_cart, only: [:add_to_cart]
@@ -6,7 +8,7 @@ class ItemsController < ApplicationController
     @items = Item.get_sold_items
     items_count = OrderItem.group(:item_id).count
     @popular_item = Item.find(items_count.key(items_count.values.max))
-    rescue ActiveRecord::RecordNotFound
+  rescue ActiveRecord::RecordNotFound
   end
 
   def new
@@ -60,14 +62,14 @@ class ItemsController < ApplicationController
   def add_to_cart
     session[:cart] ||= {}
     if cartable?
-      if session[:cart][params[:id]].nil?
-        session[:cart][params[:id]] = 1
-      else
-        session[:cart][params[:id]] = session[:cart][params[:id]].to_i + 1
-      end
-      flash[:notice] = "Item added to cart"
+      session[:cart][params[:id]] = if session[:cart][params[:id]].nil?
+                                      1
+                                    else
+                                      session[:cart][params[:id]].to_i + 1
+                                    end
+      flash[:notice] = 'Item added to cart'
     else
-      flash[:notice] = "Item from 2 different restaurants cannot be added at the same time in the cart!"
+      flash[:notice] = 'Item from 2 different restaurants cannot be added at the same time in the cart!'
     end
   end
 
@@ -77,7 +79,7 @@ class ItemsController < ApplicationController
     else
       session[:cart].delete(params[:id])
     end
-    flash[:notice] = "Item removed from cart"
+    flash[:notice] = 'Item removed from cart'
   end
 
   def increase_quantity
@@ -88,24 +90,21 @@ class ItemsController < ApplicationController
     else
       session[:cart][params[:id]] = session[:cart][params[:id]].to_i + 1
     end
-
   end
 
   def decrease_quantity
     if user_signed_in?
       cart_item = CartItem.find_by(item_id: params[:id], cart_id: current_user.cart.id)
       if cart_item.quantity == 1
-        flash[:notice] = "Quantity cannot be less than 1!"
+        flash[:notice] = 'Quantity cannot be less than 1!'
       else
         cart_item.quantity = cart_item.quantity - 1
         cart_item.save
       end
+    elsif session[:cart][params[:id]].to_i == 1
+      flash[:notice] = 'Quantity cannot be less than 1!'
     else
-      if session[:cart][params[:id]].to_i == 1
-        flash[:notice] = "Quantity cannot be less than 1!"
-      else
-        session[:cart][params[:id]] = session[:cart][params[:id]].to_i - 1
-      end
+      session[:cart][params[:id]] = session[:cart][params[:id]].to_i - 1
     end
   end
 
@@ -120,45 +119,46 @@ class ItemsController < ApplicationController
   def cart_checkout
     if user_signed_in?
       if current_user.cart.items.empty?
-        flash[:notice] = "Cannot checkout with an empty cart!"
+        flash[:notice] = 'Cannot checkout with an empty cart!'
         redirect_to carts_path and return
       end
 
       items = current_user.cart.items
       total = 0
       items.each do |item|
-        total = total + item.item_price * CartItem.find_by(cart_id: current_user.cart.id, item_id: item.id).quantity
+        total += item.item_price * CartItem.find_by(cart_id: current_user.cart.id, item_id: item.id).quantity
       end
       order = Order.create(user_id: current_user.id, status: 0, total: total)
       items.each do |item|
-        OrderItem.create(item_id: item.id, order_id: order.id, quantity: CartItem.find_by(cart_id: current_user.cart.id, item_id: item.id).quantity)
+        OrderItem.create(item_id: item.id, order_id: order.id,
+                         quantity: CartItem.find_by(cart_id: current_user.cart.id, item_id: item.id).quantity)
       end
       CartItem.where(cart_id: current_user.cart.id).destroy_all
       redirect_to order_path(order)
     else
-      flash[:notice] = "Please Sign in before checking out!"
+      flash[:notice] = 'Please Sign in before checking out!'
       redirect_to new_user_session_path
     end
   end
 
   private
-    def item_params
-      params.require(:item).permit(:item_title, :item_description, :item_price, :restaurant_id, :image, :is_sold, category_ids: [])
-    end
 
-    def cartable?
-      if user_signed_in? && !current_user.cart.items.first.nil?
-        current_user.cart.items.first.restaurant_id ==  Item.find(params[:id]).restaurant_id
+  def item_params
+    params.require(:item).permit(:item_title, :item_description, :item_price, :restaurant_id, :image, :is_sold,
+                                 category_ids: [])
+  end
 
-      else
-        unless session[:cart].empty?
-          item_id = session[:cart].keys[0]
-          first_item = Item.where(id: item_id).pluck(:restaurant_id)
-          current_item = Item.where(id: params[:id]).pluck(:restaurant_id)
-          first_item == current_item
-        else
-          true
-        end
-      end
+  def cartable?
+    if user_signed_in? && !current_user.cart.items.first.nil?
+      current_user.cart.items.first.restaurant_id == Item.find(params[:id]).restaurant_id
+
+    elsif session[:cart].empty?
+      true
+    else
+      item_id = session[:cart].keys[0]
+      first_item = Item.where(id: item_id).pluck(:restaurant_id)
+      current_item = Item.where(id: params[:id]).pluck(:restaurant_id)
+      first_item == current_item
     end
+  end
 end

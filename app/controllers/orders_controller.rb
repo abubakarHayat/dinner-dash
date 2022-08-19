@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class OrdersController < ApplicationController
   def index
     @orders = current_user.orders
@@ -24,26 +26,25 @@ class OrdersController < ApplicationController
   end
 
   def admin_show_orders
-    case params[:status]
-    when "ordered"
-      @orders = Order.where(user_id: User.where(is_admin: false).pluck(:id), status: params[:status])
-    when "paid"
-      @orders = Order.where(user_id: User.where(is_admin: false).pluck(:id), status: params[:status])
-    when "completed"
-      @orders = Order.where(user_id: User.where(is_admin: false).pluck(:id), status: params[:status])
-    when "cancelled"
-      @orders = Order.where(user_id: User.where(is_admin: false).pluck(:id), status: params[:status])
-    else
-      @orders = Order.where(user_id: User.where(is_admin: false).pluck(:id))
-    end
+    @orders = case params[:status]
+              when 'ordered'
+                Order.where(user_id: User.where(is_admin: false).pluck(:id), status: params[:status])
+              when 'paid'
+                Order.where(user_id: User.where(is_admin: false).pluck(:id), status: params[:status])
+              when 'completed'
+                Order.where(user_id: User.where(is_admin: false).pluck(:id), status: params[:status])
+              when 'cancelled'
+                Order.where(user_id: User.where(is_admin: false).pluck(:id), status: params[:status])
+              else
+                Order.where(user_id: User.where(is_admin: false).pluck(:id))
+              end
     authorize @orders
     @total_orders_by_status = Order.group(:status).count
   end
 
   private
 
-    def order_params
-      params.require(:order).permit(:status)
-    end
-
+  def order_params
+    params.require(:order).permit(:status)
+  end
 end

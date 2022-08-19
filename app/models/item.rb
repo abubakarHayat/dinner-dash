@@ -9,7 +9,7 @@ class Item < ApplicationRecord
   has_one_attached :image, dependent: :destroy
 
   validates :item_title, :item_description, :item_price, presence: true
-  validates :category_ids, presence: true
+  #validates :category_ids, presence: true
   validate :check_image_type
 
 

@@ -1,5 +1,6 @@
 <tr>
-  <td style="vertical-align: middle" ><p><em>User: <%= order.user.first_name %></em></p></td>
+  <td style="vertical-align: middle" ><p><em><%= order.user.first_name + ' ' + order.user.last_name %></em></p></td>
+    <td style="vertical-align: middle" ><p><em><%= order.user.email %></em></p></td>
   <td style="vertical-align: middle" ><p>Order# <%= order.id %></p></td>
   <td style="vertical-align: middle" ><p><%= order.status %></p></td>
   <td style="vertical-align: middle" ><p><%= order.total %></p></td>

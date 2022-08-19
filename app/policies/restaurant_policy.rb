@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RestaurantPolicy < ApplicationPolicy
   class Scope < Scope
     # NOTE: Be explicit about which records you allow access to!
@@ -11,19 +13,18 @@ class RestaurantPolicy < ApplicationPolicy
   end
 
   def create?
-    @user.is_admin
+    @user&.is_admin || false
   end
 
   def show?
-    @user.is_admin
+    @user&.is_admin || false
   end
 
   def destroy?
-    @user.is_admin
+    @user&.is_admin || false
   end
 
   def admin_show_restaurants?
-    @user.is_admin
+    @user&.is_admin || false
   end
-
 end
