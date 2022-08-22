@@ -17,7 +17,7 @@ class RestaurantPolicy < ApplicationPolicy
   end
 
   def show?
-    @user&.is_admin || false
+    true
   end
 
   def destroy?
