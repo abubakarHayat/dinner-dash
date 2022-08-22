@@ -1,0 +1,14 @@
+<tr>
+  <td>
+    <% if item.image.attached? %>
+      <%= image_tag item.image, class: "card-img-top" %>
+    <% else %>
+      <%= image_tag "default_item_image.png", class: "card-img-top" %>
+    <% end %>
+  </td>
+  <td style="vertical-align: middle" ><p><%= item.item_title %></p></td>
+  <td style="vertical-align: middle" ><p><%= item.item_price %></p></td>
+  <td style="vertical-align: middle" >
+    <p><%= quantity %></p>
+  </td>
+</tr>

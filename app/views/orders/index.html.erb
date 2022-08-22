@@ -1,0 +1,18 @@
+<div class="container" >
+  <div class="row">
+    <div class="col-md-12">
+    <table class="table table-bordered">
+    <thead>
+      <td>Order</td>
+      <td>Status</td>
+      <td>Total Bill</td>
+      <td>Order Page</td>
+    </thead>
+      <tbody>
+        <%= render partial: 'orders/partials/order_card', collection: @orders, as: :order %>
+      </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

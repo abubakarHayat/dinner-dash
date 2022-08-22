@@ -1,0 +1,29 @@
+
+<div class="container" >
+  <div class="row">
+    <div class="col-md-12">
+    <table class="table table-bordered">
+    <thead>
+      <td>Image</td>
+      <td>Item Name</td>
+      <td>Item Price</td>
+      <td>Item Quantity</td>
+    </thead>
+      <tbody>
+        <% @order.items.each do |item| %>
+          <%= render partial: 'orders/partials/order_item',
+           locals: { item: item, quantity: OrderItem.find_by(order_id: @order.id, item_id: item.id).quantity} %>
+        <% end %>
+      </tbody>
+      </table>
+    </div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-md-12">
+      <h3> Total: </h3>
+      <p>PKR: <%= Order.find(@order.id).total %></p>
+    </div>
+  </div>
+</div>
+

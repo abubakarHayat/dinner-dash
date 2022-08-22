@@ -1,0 +1,19 @@
+<h1>Restaurants</h1>
+
+<div class="container">
+  <div class="row">
+    <% if @restaurants.empty? %>
+      <h4>No restaurants to show!</h4>
+    <% end %>
+      <% @restaurants.each do |restaurant| %>
+      <div class="col-md-4">
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title"><%= restaurant.restaurant_name %></h5>
+            <%= link_to 'See all items', restaurant_path(restaurant), class:'btn btn-primary' %>
+          </div>
+        </div>
+      </div>
+      <% end %>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<h1>Items</h1>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12" style="text-align: center">
+    <% unless @popular_item.nil? %>
+      <div class="card text-center" style="width: 20rem; background-color: #f7e39e">
+      <% if @popular_item.image.attached? %>
+        <%= image_tag @popular_item.image, class: 'card-img-top'%>
+      <% else %>
+        <%= image_tag 'default_item_image.png', class: 'card-img-top'%>
+      <% end %>
+      <div class="card-body">
+        <h5 style="text-align: center"> Popular Item</h5>
+        <h5 class="card-title"><%= @popular_item.item_title %></h5>
+        <h6 class="card-subtitle mb-2 text-muted"><%= @popular_item.restaurant.restaurant_name %></h6>
+        <h6 class="card-subtitle mb-2 text-muted">PKR: <%= @popular_item.item_price %></h6>
+        <p class="card-text"><%= @popular_item.item_description %></p>
+        <%= link_to 'Add to cart', add_to_cart_path(@popular_item), class: 'btn btn-primary', method: :post, remote: true %>
+      </div>
+    </div>
+    <% else %>
+      <p>No items to show!</p>
+    <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+    <%= render partial: 'items/partials/item_card', collection: @items, as: :item %>
+  </div>
+</div>

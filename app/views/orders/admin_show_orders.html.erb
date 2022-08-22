@@ -1,0 +1,54 @@
+<div class="container" >
+  <div class="row">
+    <div class="col-md-4">
+      <%= form_tag admin_show_orders_path, method: :get do %>
+        <%= select_tag :status, options_for_select(Order.statuses.map { |key, val| [key, key] } << ["all", "all"]), class: "form-select form-select-lg" %>
+        <%= submit_tag :Filter, class:"btn btn-success" %>
+      <% end %>
+    </div>
+  </div>
+  <br />
+  <hr />
+  <br />
+  <div class="row">
+  <div class="col-md-12">
+    <table class="table table-bordered">
+      <thead>
+        <td>Order Status</td>
+        <td>Total number of orders</td>
+      </thead>
+      <tbody>
+        <% @total_orders_by_status.each do |key,val| %>
+          <tr>
+            <td><%= key %></td>
+            <td><%= val %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  </div>
+
+  <br />
+  <hr />
+  <br />
+  <div class="row">
+    <div class="col-md-12">
+    <table class="table table-bordered">
+    <thead>
+      <td><em>User</em></td>
+      <td>User email</td>
+      <td>Order</td>
+      <td>Status</td>
+      <td>Total Bill</td>
+      <td>Order Page</td>
+      <td>Change order status</td>
+    </thead>
+      <tbody>
+        <%= render partial: 'orders/partials/admin_order_card', collection: @orders, as: :order %>
+      </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

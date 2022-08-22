@@ -1,0 +1,49 @@
+<div class="container">
+<%= form_with model: item, local: true do |f| %>
+
+  <div>
+    <%= f.label :item_title, class:"form-label" %><br>
+    <%= f.text_field :item_title, class:"form-control" %>
+  </div>
+  <div>
+    <%= f.label :item_description, class:"form-label" %><br>
+    <%= f.text_field :item_description, class:"form-control" %>
+  </div>
+  <div>
+    <%= f.label :item_price, class:"form-label" %><br>
+    <%= f.text_field :item_price, class:"form-control" %>
+  </div>
+  <div>
+    <%= f.label :is_sold?, class:"form-label" %><br>
+    <%= f.label :is_sold, "Yes", :value => "true" %>
+    <%= f.radio_button :is_sold, true, :checked => true %>
+    <%= f.label :is_sold, "No", :value => "false"  %>
+    <%= f.radio_button :is_sold, false %>
+  </div>
+
+  <div>
+    <%= f.label :image, class:"form-label"  %>
+    <%= f.file_field :image %>
+  </div>
+
+  <div>
+    <%= f.select :restaurant_id, Restaurant.pluck(:restaurant_name, :id), class:"form-select" %>
+  </div>
+
+  <div class="category-selection">
+    <h6>Categories:</h6>
+    <% if Category.all.empty? %>
+      <p>No categories, Create a category first!</p>
+    <% else %>
+      <% Category.all.each do |category| %>
+      <%= check_box_tag 'item[category_ids][]', category.id, item.category_ids.include?(category.id), id: dom_id(category) %>
+      <%= label_tag dom_id(category), category.category_name, class:"form-label"  %><br />
+      <% end %>
+    <% end %>
+
+  </div>
+  <div>
+    <%= f.submit %>
+  </div>
+<% end %>
+</div>

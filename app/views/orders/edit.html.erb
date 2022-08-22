@@ -1,0 +1,11 @@
+<%= form_with model: @order, local: true do |f| %>
+
+  <div>
+    <%= f.select :status, Order.statuses.map { |key, val| [key, key] } %>
+  </div>
+
+  <div>
+    <%= f.submit %>
+  </div>
+
+<% end %>

@@ -1,0 +1,10 @@
+<h2>Category: <%= @category.category_name%></h2>
+<% if @category_items.nil? || @category_items.empty? %>
+  <p>No items associated with this category!</p>
+<% else %>
+<div class="container">
+  <div class="row">
+    <%= render partial: 'categories/partials/category_item_card', collection: @category_items, as: :category_item %>
+  </div>
+</div>
+<% end %>
