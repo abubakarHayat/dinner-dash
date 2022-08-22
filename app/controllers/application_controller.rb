@@ -7,6 +7,13 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+
+  def record_not_found
+    flash[:alert] = 'No such record exist!'
+    redirect_to root_path
+  end
+
   private
 
   def user_not_authorized
