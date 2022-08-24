@@ -1,0 +1,3 @@
+$('#<%= @removed_item_id %>').remove()
+$('#total-check').text("PKR: <%= session[:cart_total] %>")
+$('#notice').html("<%= flash[:notice] %>")

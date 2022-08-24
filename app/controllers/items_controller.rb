@@ -73,73 +73,14 @@ class ItemsController < ApplicationController
     end
   end
 
-  def remove_cart_item
-    if user_signed_in?
-      CartItem.find_by!(cart_id: current_user.cart.id, item_id: params[:id]).destroy
-    else
-      session[:cart].delete(params[:id])
-    end
-    flash[:notice] = 'Item removed from cart'
-  end
-
-  def increase_quantity
-    if user_signed_in?
-      cart_item = CartItem.find_by(item_id: params[:id], cart_id: current_user.cart.id)
-      cart_item.quantity = cart_item.quantity + 1
-      cart_item.save
-    else
-      session[:cart][params[:id]] = session[:cart][params[:id]].to_i + 1
-    end
-  end
-
-  def decrease_quantity
-    if user_signed_in?
-      cart_item = CartItem.find_by(item_id: params[:id], cart_id: current_user.cart.id)
-      if cart_item.quantity == 1
-        flash[:notice] = 'Quantity cannot be less than 1!'
-      else
-        cart_item.quantity = cart_item.quantity - 1
-        cart_item.save
-      end
-    elsif session[:cart][params[:id]].to_i == 1
-      flash[:notice] = 'Quantity cannot be less than 1!'
-    else
-      session[:cart][params[:id]] = session[:cart][params[:id]].to_i - 1
-    end
-  end
-
-  # def get_item_quantity
+  # def remove_cart_item
   #   if user_signed_in?
-  #     @item_ quantity = CartItem.find_by(item_id: params[:id], cart_id: current_user.cart.id).quantity
+  #     CartItem.find_by!(cart_id: current_user.cart.id, item_id: params[:id]).destroy
   #   else
-  #     @item_quantity = session[:cart][params[:id].to_s]
+  #     session[:cart].delete(params[:id])
   #   end
+  #   flash[:notice] = 'Item removed from cart'
   # end
-
-  def cart_checkout
-    if user_signed_in?
-      if current_user.cart.items.empty?
-        flash[:notice] = 'Cannot checkout with an empty cart!'
-        redirect_to carts_path and return
-      end
-
-      items = current_user.cart.items
-      total = 0
-      items.each do |item|
-        total += item.item_price * CartItem.find_by(cart_id: current_user.cart.id, item_id: item.id).quantity
-      end
-      order = Order.create(user_id: current_user.id, status: 0, total: total)
-      items.each do |item|
-        OrderItem.create(item_id: item.id, order_id: order.id,
-                         quantity: CartItem.find_by(cart_id: current_user.cart.id, item_id: item.id).quantity)
-      end
-      CartItem.where(cart_id: current_user.cart.id).destroy_all
-      redirect_to order_path(order)
-    else
-      flash[:notice] = 'Please Sign in before checking out!'
-      redirect_to new_user_session_path
-    end
-  end
 
   private
 
