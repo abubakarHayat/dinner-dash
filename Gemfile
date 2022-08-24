@@ -68,4 +68,7 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
+gem 'cloudinary', '~> 1.18', '>= 1.18.1'
+gem 'activestorage-cloudinary-service'
+
 gem "pundit", "~> 2.2"
