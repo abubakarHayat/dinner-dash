@@ -73,15 +73,6 @@ class ItemsController < ApplicationController
     end
   end
 
-  # def remove_cart_item
-  #   if user_signed_in?
-  #     CartItem.find_by!(cart_id: current_user.cart.id, item_id: params[:id]).destroy
-  #   else
-  #     session[:cart].delete(params[:id])
-  #   end
-  #   flash[:notice] = 'Item removed from cart'
-  # end
-
   private
 
   def item_params
