@@ -9,6 +9,6 @@ class UserPolicy < ApplicationPolicy
   end
 
   def index?
-    @user&.is_admin || false
+    @user.admin?
   end
 end

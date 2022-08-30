@@ -18,7 +18,7 @@
           <li class="nav-item">
             <%= link_to 'Account Setting', edit_user_registration_path, class:'nav-link' %>
           </li>
-          <% if current_user && current_user.is_admin  %>
+          <% if current_user && current_user.admin?  %>
           <li class="nav-item">
             <%= link_to 'Admin Dashboard', admins_path, class:'nav-link' %>
           </li>

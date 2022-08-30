@@ -12,27 +12,16 @@ class ItemPolicy < ApplicationPolicy
     create?
   end
 
-  def create?
-    @user&.is_admin || false
-  end
-
   def edit?
     update?
   end
 
-  def show?
-    @user&.is_admin || false
-  end
-
-  def update?
-    @user&.is_admin || false
-  end
-
-  def destroy?
-    @user&.is_admin || false
-  end
-
   def admin_show_items?
-    @user&.is_admin || false
+    @user.admin?
   end
+
+  alias_method :create?, :admin_show_items?
+  alias_method :update?, :admin_show_items?
+  alias_method :destroy?, :admin_show_items?
+  alias_method :show?, :admin_show_items?
 end

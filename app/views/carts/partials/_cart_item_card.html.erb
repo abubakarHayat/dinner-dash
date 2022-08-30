@@ -8,12 +8,12 @@
   </td>
   <td style="vertical-align: middle" ><p><%= item.item_title %></p></td>
   <td style="vertical-align: middle" ><p><%= item.item_price %></p></td>
-  <td style="vertical-align: middle" ><%= button_to '-', decrease_quantity_path(item), class:'btn btn-outline-danger', remote: true %>
+  <td style="vertical-align: middle" ><%= button_to '-', decrease_quantity_cart_path(item), class:'btn btn-outline-danger', remote: true %>
   <% if user_signed_in? %>
     <p id=<%= dom_id(item)%> > <%= CartItem.find_by(item_id: item.id, cart_id: current_user.cart.id).quantity %></p>
    <% else %>
     <p id=<%= dom_id(item) %> ><%= session[:cart][item.id.to_s] %> </p>
    <% end %>
-  <%= button_to '+', increase_quantity_path(item), class:'btn btn-outline-success', remote: true %></td>
-  <td><%= button_to 'Remove from cart', remove_cart_item_path(item), class:'btn btn-danger', method: :delete, remote: true %></td>
+  <%= button_to '+', increase_quantity_cart_path(item), class:'btn btn-outline-success', remote: true %></td>
+  <td><%= button_to 'Remove from cart', remove_item_cart_path(item), class:'btn btn-danger', method: :delete, remote: true %></td>
 </tr>

@@ -1,7 +1,6 @@
 <h1>Items</h1>
 
 <div class="container">
-<%= debug session[:cart] %>
   <div class="row">
     <div class="col-md-12" style="text-align: center">
     <% unless @popular_item.nil? %>
@@ -17,7 +16,7 @@
         <h6 class="card-subtitle mb-2 text-muted"><%= @popular_item.restaurant.restaurant_name %></h6>
         <h6 class="card-subtitle mb-2 text-muted">PKR: <%= @popular_item.item_price %></h6>
         <p class="card-text"><%= @popular_item.item_description %></p>
-        <%= link_to 'Add to cart', add_to_cart_path(@popular_item), class: 'btn btn-primary', method: :post, remote: true %>
+        <%= link_to 'Add to cart', add_to_cart_item_path(@popular_item), class: 'btn btn-primary', method: :post, remote: true %>
       </div>
     </div>
     <% else %>

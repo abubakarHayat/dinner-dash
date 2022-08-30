@@ -12,11 +12,9 @@ class OrderPolicy < ApplicationPolicy
     update?
   end
 
-  def update?
-    @user&.is_admin || false
+  def admin_show_orders?
+    @user.admin?
   end
 
-  def admin_show_orders?
-    @user&.is_admin || false
-  end
+  alias_method :update?, :admin_show_orders?
 end

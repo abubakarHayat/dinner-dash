@@ -36,7 +36,7 @@ class CartsController < ApplicationController
     end
   end
 
-  def cart_checkout
+  def checkout
     return unless check_user_cart_checkout
 
     total = cart_total
@@ -50,7 +50,7 @@ class CartsController < ApplicationController
     remove_cart_item_for_users
     @removed_item_id = params[:id]
     flash[:notice] = 'Item removed from cart'
-    respond_to  do |format|
+    respond_to do |format|
       format.js
     end
   end

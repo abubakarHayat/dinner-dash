@@ -39,5 +39,4 @@ module CurrentCart
       cart_item.save
     end
   end
-
 end

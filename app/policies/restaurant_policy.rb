@@ -12,19 +12,14 @@ class RestaurantPolicy < ApplicationPolicy
     create?
   end
 
-  def create?
-    @user&.is_admin || false
-  end
-
   def show?
     true
   end
 
-  def destroy?
-    @user&.is_admin || false
+  def admin_show_restaurants?
+    @user.admin?
   end
 
-  def admin_show_restaurants?
-    @user&.is_admin || false
-  end
+  alias_method :create?, :admin_show_restaurants?
+  alias_method :destroy?, :admin_show_restaurants?
 end

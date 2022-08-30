@@ -24,10 +24,10 @@ class OrdersController < ApplicationController
   end
 
   def admin_show_orders
-    @orders = if params[:status]
-                Order.where(user_id: User.where(is_admin: false).pluck(:id), status: params[:status])
+    @orders = if params[:status] != 'all'
+                Order.where(user_id: User.where(role: 0).pluck(:id), status: params[:status])
               else
-                Order.where(user_id: User.where(is_admin: false).pluck(:id))
+                Order.where(user_id: User.where(role: 0).pluck(:id))
               end
     authorize @orders
     @total_orders_by_status = Order.group(:status).count

@@ -1,5 +1,6 @@
-module ItemsHelper
+# frozen_string_literal: true
 
+module ItemsHelper
   def check_cartable_authenticated
     current_user.cart.items.first.restaurant_id == Item.find(params[:id]).restaurant_id
   end

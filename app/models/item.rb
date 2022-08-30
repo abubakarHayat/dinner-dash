@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Item < ApplicationRecord
   has_many :category_items, dependent: :destroy
   has_many :categories, through: :category_items
@@ -17,8 +19,8 @@ class Item < ApplicationRecord
   private
 
   def check_image_type
-    if image.attached? && !image.content_type.in?(%w(image/jpeg image/png))
-      errors.add(:image, "Image must be a JPEG or PNG!")
-    end
+    return unless image.attached? && !image.content_type.in?(%w[image/jpeg image/png])
+
+    errors.add(:image, 'Image must be a JPEG or PNG!')
   end
 end

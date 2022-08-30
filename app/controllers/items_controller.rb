@@ -50,7 +50,8 @@ class ItemsController < ApplicationController
     authorize @item
     @item.destroy
 
-    redirect_to root_path, status: :see_other
+    flash[:alert] = 'Item deleted!'
+    redirect_to admin_show_items_path, status: :see_other
   end
 
   def admin_show_items

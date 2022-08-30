@@ -12,10 +12,6 @@ class CategoryPolicy < ApplicationPolicy
     create?
   end
 
-  def create?
-    @user&.is_admin || false
-  end
-
   def show?
     true
   end
@@ -24,15 +20,11 @@ class CategoryPolicy < ApplicationPolicy
     update?
   end
 
-  def update?
-    @user&.is_admin || false
-  end
-
-  def destroy?
-    @user&.is_admin || false
-  end
-
   def admin_show_categories?
-    @user&.is_admin || false
+    @user.admin?
   end
+
+  alias_method :create?, :admin_show_categories?
+  alias_method :update?, :admin_show_categories?
+  alias_method :destroy?, :admin_show_categories?
 end
