@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class CategoriesController < ApplicationController
+  before_action :set_category, only: %i[show destroy]
+
   def index
     @categories = Category.all
   end
@@ -21,13 +23,11 @@ class CategoriesController < ApplicationController
   end
 
   def show
-    @category = Category.find(params[:id])
     authorize Category
     @category_items = Item.where(id: CategoryItem.where(category_id: params[:id]).pluck(:item_id), is_sold: true)
   end
 
   def destroy
-    @category = Category.find(params[:id])
     authorize @category
     @category.destroy
 
@@ -43,5 +43,9 @@ class CategoriesController < ApplicationController
 
   def category_params
     params.require(:category).permit(:category_name)
+  end
+
+  def set_category
+    @category = Category.find(params[:id])
   end
 end

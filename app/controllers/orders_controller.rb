@@ -1,21 +1,19 @@
 # frozen_string_literal: true
 
 class OrdersController < ApplicationController
+  before_action :set_order, only: %i[show edit update]
+
   def index
     @orders = current_user.orders
   end
 
-  def show
-    @order = Order.find(params[:id])
-  end
+  def show; end
 
   def edit
-    @order = Order.find(params[:id])
     authorize @order
   end
 
   def update
-    @order = Order.find(params[:id])
     authorize @order
 
     if @order.update(order_params)
@@ -26,14 +24,7 @@ class OrdersController < ApplicationController
   end
 
   def admin_show_orders
-    @orders = case params[:status]
-              when 'ordered'
-                Order.where(user_id: User.where(is_admin: false).pluck(:id), status: params[:status])
-              when 'paid'
-                Order.where(user_id: User.where(is_admin: false).pluck(:id), status: params[:status])
-              when 'completed'
-                Order.where(user_id: User.where(is_admin: false).pluck(:id), status: params[:status])
-              when 'cancelled'
+    @orders = if params[:status]
                 Order.where(user_id: User.where(is_admin: false).pluck(:id), status: params[:status])
               else
                 Order.where(user_id: User.where(is_admin: false).pluck(:id))
@@ -46,5 +37,9 @@ class OrdersController < ApplicationController
 
   def order_params
     params.require(:order).permit(:status)
+  end
+
+  def set_order
+    @order = Order.find(params[:id])
   end
 end

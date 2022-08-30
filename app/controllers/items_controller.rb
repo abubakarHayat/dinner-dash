@@ -2,13 +2,16 @@
 
 class ItemsController < ApplicationController
   include CurrentCart
+  include ItemsHelper
   after_action :set_cart, only: [:add_to_cart]
+  before_action :set_item, only: %i[edit update show destroy]
 
   def index
-    @items = Item.get_sold_items
+    @items = Item.sold_items
     items_count = OrderItem.group(:item_id).count
     @popular_item = Item.find(items_count.key(items_count.values.max))
   rescue ActiveRecord::RecordNotFound
+    flash[:notice] = 'No items to display!'
   end
 
   def new
@@ -27,12 +30,10 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    @item = Item.find(params[:id])
     authorize @item
   end
 
   def update
-    @item = Item.find(params[:id])
     authorize @item
     if @item.update(item_params)
       redirect_to @item
@@ -42,12 +43,10 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item = Item.find(params[:id])
     authorize Item
   end
 
   def destroy
-    @item = Item.find(params[:id])
     authorize @item
     @item.destroy
 
@@ -62,12 +61,7 @@ class ItemsController < ApplicationController
   def add_to_cart
     session[:cart] ||= {}
     if cartable?
-      session[:cart][params[:id]] = if session[:cart][params[:id]].nil?
-                                      1
-                                    else
-                                      session[:cart][params[:id]].to_i + 1
-                                    end
-      flash[:notice] = 'Item added to cart'
+      make_cart_for_items
     else
       flash[:notice] = 'Item from 2 different restaurants cannot be added at the same time in the cart!'
     end
@@ -80,17 +74,17 @@ class ItemsController < ApplicationController
                                  category_ids: [])
   end
 
+  def set_item
+    @item = Item.find(params[:id])
+  end
+
   def cartable?
     if user_signed_in? && !current_user.cart.items.first.nil?
-      current_user.cart.items.first.restaurant_id == Item.find(params[:id]).restaurant_id
-
+      check_cartable_authenticated
     elsif session[:cart].empty?
       true
     else
-      item_id = session[:cart].keys[0]
-      first_item = Item.where(id: item_id).pluck(:restaurant_id)
-      current_item = Item.where(id: params[:id]).pluck(:restaurant_id)
-      first_item == current_item
+      check_cartable_unauthenticated
     end
   end
 end

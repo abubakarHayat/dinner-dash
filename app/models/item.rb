@@ -12,10 +12,7 @@ class Item < ApplicationRecord
   validates :category_ids, presence: true
   validate :check_image_type
 
-
-  def self.get_sold_items
-    Item.where(is_sold: true)
-  end
+  scope :sold_items, -> { where(is_sold: true) }
 
   private
 

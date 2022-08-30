@@ -9,5 +9,5 @@ class Order < ApplicationRecord
   has_many :order_items, dependent: :destroy
   has_many :items, through: :order_items
 
-  validates :status, inclusion: {in: statuses.keys}
+  validates :status, inclusion: { in: statuses.keys }
 end
