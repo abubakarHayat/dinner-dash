@@ -31,12 +31,8 @@ class CategoriesController < ApplicationController
     authorize @category
     @category.destroy
 
-    redirect_to categories_path, status: :see_other
-  end
-
-  def admin_show_categories
-    @categories = Category.all
-    authorize @categories
+    flash[:alert] = 'Category deleted!'
+    redirect_to show_categories_admins_path, status: :see_other
   end
 
   private

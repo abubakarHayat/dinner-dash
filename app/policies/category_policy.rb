@@ -20,11 +20,10 @@ class CategoryPolicy < ApplicationPolicy
     update?
   end
 
-  def admin_show_categories?
+  def destroy?
     @user.admin?
   end
 
-  alias_method :create?, :admin_show_categories?
-  alias_method :update?, :admin_show_categories?
-  alias_method :destroy?, :admin_show_categories?
+  alias_method :create?, :destroy?
+  alias_method :update?, :destroy?
 end

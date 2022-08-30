@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class UserPolicy < ApplicationPolicy
   class Scope < Scope
     # NOTE: Be explicit about which records you allow access to!
@@ -11,4 +9,9 @@ class UserPolicy < ApplicationPolicy
   def index?
     @user.admin?
   end
+
+  alias_method :show_orders?, :index?
+  alias_method :show_categories?, :index?
+  alias_method :show_restaurants?, :index?
+  alias_method :show_items?, :index?
 end

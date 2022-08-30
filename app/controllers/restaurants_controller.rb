@@ -31,12 +31,8 @@ class RestaurantsController < ApplicationController
     authorize @restaurant
     @restaurant.destroy
 
-    redirect_to root_path, status: :see_other
-  end
-
-  def admin_show_restaurants
-    @restaurants = Restaurant.all
-    authorize @restaurants
+    flash[:alert] = 'Restaurant deleted!'
+    redirect_to show_restaurants_admins_path, status: :see_other
   end
 
   private

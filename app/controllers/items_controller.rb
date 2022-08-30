@@ -51,12 +51,7 @@ class ItemsController < ApplicationController
     @item.destroy
 
     flash[:alert] = 'Item deleted!'
-    redirect_to admin_show_items_path, status: :see_other
-  end
-
-  def admin_show_items
-    @items = Item.includes(:restaurant)
-    authorize @items
+    redirect_to show_items_admins_path, status: :see_other
   end
 
   def add_to_cart
