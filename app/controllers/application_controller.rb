@@ -9,11 +9,6 @@ class ApplicationController < ActionController::Base
 
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
-  def record_not_found
-    flash[:alert] = 'No such record exist!'
-    redirect_to root_path
-  end
-
   private
 
   def user_not_authorized
@@ -30,5 +25,10 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:account_update) do |u|
       u.permit(:first_name, :last_name, :display_name, :email, :password, :current_password)
     end
+  end
+
+  def record_not_found
+    flash[:alert] = 'No such record exist!'
+    redirect_to root_path
   end
 end

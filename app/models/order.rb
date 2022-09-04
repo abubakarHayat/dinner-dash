@@ -10,6 +10,6 @@ class Order < ApplicationRecord
   belongs_to :user
   has_many :order_items, dependent: :destroy
   has_many :items, through: :order_items
-
+  validates :total, presence: true
   validates :status, inclusion: { in: statuses.keys }
 end
