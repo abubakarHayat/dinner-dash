@@ -35,7 +35,7 @@ RSpec.describe User, type: :model do
     end
 
     context 'when checking user is admin' do
-      let(:user_admin) { build(:user_admin) }
+      let(:user_admin) { create(:user_admin) }
 
       it { expect(user_admin.admin?).to be(true) }
     end

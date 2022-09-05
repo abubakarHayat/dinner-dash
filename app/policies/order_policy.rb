@@ -13,6 +13,6 @@ class OrderPolicy < ApplicationPolicy
   end
 
   def update?
-    @user.admin?
+    @user.present? && @user.admin?
   end
 end

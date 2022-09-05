@@ -7,7 +7,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def index?
-    @user.admin?
+    @user.present? && @user.admin?
   end
 
   alias_method :show_orders?, :index?

@@ -70,6 +70,7 @@ group :test do
   gem 'chromedriver-helper'
   gem 'shoulda-matchers', '~> 5.0'
   gem 'simplecov', require: false
+  gem 'rails-controller-testing'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

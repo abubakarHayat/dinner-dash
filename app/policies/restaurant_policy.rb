@@ -17,7 +17,7 @@ class RestaurantPolicy < ApplicationPolicy
   end
 
   def destroy?
-    @user.admin?
+    @user.present? && @user.admin?
   end
 
   alias_method :create?, :destroy?

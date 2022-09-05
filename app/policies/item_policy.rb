@@ -16,11 +16,14 @@ class ItemPolicy < ApplicationPolicy
     update?
   end
 
+  def show?
+    true
+  end
+
   def destroy?
-    @user.admin?
+    @user.present? && @user.admin?
   end
 
   alias_method :create?, :destroy?
   alias_method :update?, :destroy?
-  alias_method :show?, :destroy?
 end
