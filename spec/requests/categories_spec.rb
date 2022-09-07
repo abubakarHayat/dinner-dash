@@ -4,6 +4,7 @@ RSpec.describe "Categories", type: :request do
   let(:user_admin) { create(:user_admin) }
   let(:valid_attributes) do
     {
+      id: 1,
       category_name: 'Category 1'
     }
   end
@@ -91,11 +92,13 @@ RSpec.describe "Categories", type: :request do
       end
     end
 
-    context 'when params are invalid' do
-      it 'doesn\'t delete the item' do
-        cat = Category.create(valid_attributes)
-        cat.save
-        expect { delete category_url(invalid_attributes) }.to change(Category, :count).by(0)
+    context 'when category is not destroyed' do
+      it 'doesn\'t delete the category' do
+        cat = Category.new(invalid_attributes)
+        allow(cat).to receive(:destroy).and_return(false)
+        allow(Category).to receive(:find).and_return(cat)
+        expect { delete category_url(cat) }.to change(Category, :count).by(0)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
     end
 

@@ -29,10 +29,13 @@ class CategoriesController < ApplicationController
 
   def destroy
     authorize @category
-    @category.destroy
 
-    flash[:alert] = 'Category deleted!'
-    redirect_to show_categories_admins_path, status: :see_other
+    if @category.destroy
+      flash[:alert] = 'Category deleted!'
+      redirect_to show_categories_admins_path, status: :see_other
+    else
+      render :index, status: :unprocessable_entity
+    end
   end
 
   private

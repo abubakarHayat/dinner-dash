@@ -48,10 +48,12 @@ class ItemsController < ApplicationController
 
   def destroy
     authorize @item
-    @item.destroy
-
-    flash[:alert] = 'Item deleted!'
-    redirect_to show_items_admins_path, status: :see_other
+    if @item.destroy
+      flash[:alert] = 'Item deleted!'
+      redirect_to show_items_admins_path, status: :see_other
+    else
+      render :index, status: :unprocessable_entity
+    end
   end
 
   def add_to_cart

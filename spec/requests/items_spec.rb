@@ -178,11 +178,18 @@ RSpec.describe "Items", type: :request do
 
     context 'when params are invalid' do
       it 'doesn\'t delete the item' do
-        item = Item.create(valid_attributes)
-        item.save
-        expect do
-          delete item_url(invalid_attributes)
-        end.to change(Item, :count).by(0)
+        expect { delete item_url(invalid_attributes) }.to change(Item, :count).by(0)
+        # expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+
+    context 'when params are invalid with stub' do
+      it 'doesn\'t delete the item' do
+        item = Item.new(invalid_attributes)
+        allow(item).to receive(:destroy).and_return(false)
+        allow(Item).to receive(:find).and_return(item)
+        expect{ delete item_url(valid_attributes) }.to change(Item, :count).by(0)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
     end
 
