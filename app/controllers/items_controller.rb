@@ -43,7 +43,7 @@ class ItemsController < ApplicationController
   end
 
   def show
-    authorize Item
+    # authorize Item
   end
 
   def destroy
