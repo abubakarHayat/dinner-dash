@@ -10,6 +10,10 @@ class ItemsController < ApplicationController
     @items = Item.sold_items
     items_count = OrderItem.group(:item_id).count
     @popular_item = Item.find(items_count.key(items_count.values.max))
+    respond_to do |format|
+      format.html
+      format.json
+    end
   rescue ActiveRecord::RecordNotFound
     flash[:notice] = 'No items to display!'
   end

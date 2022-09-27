@@ -14,7 +14,7 @@ FactoryBot.define do
     end
 
     trait :attr do
-      rest = Restaurant.create(restaurant_name: 'Restt 1')
+      # rest = Restaurant.create(restaurant_name: 'Restt 1')
       restaurant_id { rest.id }
     end
 

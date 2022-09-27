@@ -29,6 +29,9 @@ class ApplicationController < ActionController::Base
 
   def record_not_found
     flash[:alert] = 'No such record exist!'
-    redirect_to root_path
+    respond_to do |format|
+      format.html { redirect_to root_path }
+      format.json { render json: { error: 'No such record exist' }, status: :not_found }
+    end
   end
 end
